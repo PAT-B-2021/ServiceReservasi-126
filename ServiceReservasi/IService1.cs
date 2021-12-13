@@ -8,27 +8,68 @@ using System.Text;
 namespace ServiceReservasi
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
+    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
     [ServiceContract]
     public interface IService1
     {
         [OperationContract]
-        string pemesanan(string IDPemesanan, string NamaCustomer, string NoTelpon, int JumlahPemesanan, string IDLokasi);
+        string pemesanan(string IDPemesanan, string NamaCustomer, string NoTelepon, int JumlahPemesanan, string IDLokasi); //Method input data
+
         [OperationContract]
-        string editPemesanan(string IDPemesanan, string NamaCustomer);
+        string editPesanan(string IDPemesanan, string NamaCustomer, string NoTelepon);
+
         [OperationContract]
-        string deletePemesanan(string IDPemesanan);
+        string deletePesanan(string IDPemesanan);
+
         [OperationContract]
         List<CekLokasi> ReviewLokasi();
+
         [OperationContract]
         List<DetailLokasi> DetailLokasi();
+
         [OperationContract]
         List<Pemesanan> Pemesanan();
 
+        [OperationContract]
+        string GetData(int value);
+
+        [OperationContract]
+        CompositeType GetDataUsingDataContract(CompositeType composite);
 
         // TODO: Add your service operations here
     }
 
+
     [DataContract]
+    public class Pemesanan //daftar lokasi //create
+    {
+        [DataMember]
+        public string IDPemesanan { get; set; }
+        [DataMember]
+        public string NamaCustomer { get; set; }
+        [DataMember]
+        public string NoTelepon { get; set; }
+        [DataMember]
+        public int JumlahPemesanan { get; set; }
+
+        [DataMember]
+        public int IDLokasi { get; set; }
+
+    }
+
+    [DataContract]
+    public class DetailLokasi //menanpilkan detail lokasi
+    {
+        [DataMember]
+        public string IDLokasi { get; set; }
+        [DataMember]
+        public string NamaLokasi { get; set; }
+        [DataMember]
+        public string DeskripsiLengkap { get; set; }
+        [DataMember]
+        public int Kuota { get; set; }
+    }
+
     public class CekLokasi
     {
         [DataMember]
@@ -36,35 +77,7 @@ namespace ServiceReservasi
         [DataMember]
         public string NamaLokasi { get; set; }
         [DataMember]
-        public string DekripsisSingkat { get; set; }
-    }
-
-    [DataContract]
-    public class DetailLokasi
-    {
-        [DataMember]
-        public string IDLokasi { get; set; }
-        [DataMember]
-        public string NamaLokasi { get; set; }
-        [DataMember]
-        public string DeksripsiFull { get; set; }
-        [DataMember]
-        public int Kuota { get; set; }
-    }
-
-    [DataContract]
-    public class Pemesanan
-    {
-        [DataMember]
-        public string IDPemesanan { get; set; }
-        [DataMember]
-        public string NamaCustomer { get; set; }
-        [DataMember]
-        public string NoTelpon { get; set; }
-        [DataMember]
-        public string JumlahPemesanan { get; set; }
-        [DataMember]
-        public string IDLokasi { get; set; }
+        public string DeskripsiSingkat { get; set; }
     }
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations.
